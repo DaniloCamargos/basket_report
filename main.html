@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 { 
+            color: #0066cc; 
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+        }
+        .summary {
+            background-color: #e8f4f8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 20px 0;
+            font-size: 13px;
+        }
+        th { 
+            background-color: #0066cc; 
+            color: white; 
+            padding: 12px 8px;
+            text-align: center;
+        }
+        th:first-child {
+            text-align: left;
+        }
+        td { 
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            text-align: right;
+        }
+        td:first-child {
+            text-align: left;
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        tr:hover td { 
+            background-color: #e8f4f8; 
+        }
+        .total-row {
+            background-color: #0066cc;
+            color: white;
+            font-weight: bold;
+        }
+        .total-row td {
+            border-top: 2px solid #003d7a;
+            color: white !important;
+        }
+        .total-row .valor {
+             color: white !important;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            color: #666;
+            font-size: 12px;
+        }
+        .valor {
+            font-weight: bold;
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📊 Basket </strong> {{ $json.mes }}/{{ $json.ano }} </h2>
+        <p><strong>Data de Geração:</strong> {{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}</p>
+        <p><strong>Período:</strong> {{ $json.mes }}/{{ $json.ano }}</p>
+        
+        <div class="summary">
+            <p><strong>📈 Resumo:</strong></p>
+            <p>Total de Registros Processados: <strong>{{ $json.total_registros }}</strong></p>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Executivo</th>
+                    <th>TV PARANAIBA (RECORD)</th>
+                    <th>PARANAIBA FM 100,7</th>
+                    <th>EDUCADORA 90.9 FM</th>
+                    <th>PORTAL + DIGITAL</th>
+                    <th>OUT OF HOME</th>
+                    <th>Total Geral</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ $json.html_tabela }}
+            </tbody>
+        </table>
+        
+        <div class="footer">
+            <p><strong>Diretoria de Tecnologia da Informação</strong></p>
+            <p>Contato | dcamargos@grupoparanaiba.com.br</p>
+            <p>Grupo Paranaíba | automacao@grupoparanaiba.com.br</p>
+            <p><em>Email gerado automaticamente - Não responda</em></p>
+        </div>
+    </div>
+</body>
+</html>
