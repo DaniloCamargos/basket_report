@@ -1,5 +1,5 @@
 // Acessa os dados de entrada (assumindo que vêm do nó anterior)
-const items = $input.all();
+const items = $('business_basket').all();;
 
 // Se não houver dados, retorna vazio
 if (items.length === 0) {
