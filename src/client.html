@@ -90,7 +90,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>📊 Basket </strong> {{ $json.mes }}/{{ $json.ano }} </h2>
+        <h2>📊 Basket </strong> {{ $json.mes }} / {{ $json.ano }} </h2>
         <p><strong>Data de Geração:</strong> {{ $now.setZone('America/Sao_Paulo').toFormat('dd/MM/yyyy HH:mm') }}</p>
         <p><strong>Período:</strong> {{ $json.mes }}/{{ $json.ano }}</p>
         
@@ -138,12 +138,12 @@
             <tbody>
                 <tr>
                     <td>Meta (R$)</td>
-                    <td class="valor">R$ 420.000</td>
-                    <td class="valor">R$ 180.000</td>
-                    <td class="valor">R$ 120.000</td>
-                    <td class="valor">R$ 95.000</td>
-                    <td class="valor">R$ 60.000</td>
-                    <td class="valor">R$ 875.000</td>
+                    <td class="valor">R$ 806.000,00</td>
+                    <td class="valor">R$ 559.000,00</td>
+                    <td class="valor">R$ 134.000,00</td>
+                    <td class="valor">R$ 95.000,00</td>
+                    <td class="valor">R$ 12.000,00</td>
+                    <td class="valor">R$ 1.511,000,00</td>
                 </tr>
 
                 <tr>
@@ -188,7 +188,7 @@
                 <tr>
                     <td>Realizado x Meta (%)</td>
                     {{ (() => {
-                        const metas = [420000, 180000, 120000, 95000, 60000, 875000];
+                        const metas = [806000, 559000, 134000, 95000, 12000, 1511000];
                         
                         const canais = {
                             'TV PARANAIBA (RECORD)': 0,
