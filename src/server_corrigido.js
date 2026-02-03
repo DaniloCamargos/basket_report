@@ -9,10 +9,10 @@ if (items.length === 0) {
 // Configurações iniciais
 const executivos = {};
 const totaisGerais = {
-    'TV PARANAIBA (RECORD)': 0, 
-    'PARANAIBA FM 100,7': 0,
-    'EDUCADORA 90.9 FM': 0,
-    'PORTAL + DIGITAL': 0,
+    'TV PARANAIBA RECORD': 0, 
+    'PARANAIBA FM 1007': 0,
+    'EDUCADORA 909 FM': 0,
+    'PORTAL  DIGITAL': 0,
     'OUT OF HOME': 0
 };
 
@@ -30,10 +30,10 @@ for (const item of items) {
 
     if (!executivos[exec]) {
         executivos[exec] = {
-            'TV PARANAIBA (RECORD)': 0,
-            'PARANAIBA FM 100,7': 0,
-            'EDUCADORA 90.9 FM': 0,
-            'PORTAL + DIGITAL': 0,
+            'TV PARANAIBA RECORD': 0,
+            'PARANAIBA FM 1007': 0,
+            'EDUCADORA 909 FM': 0,
+            'PORTAL  DIGITAL': 0,
             'OUT OF HOME': 0
         };
     }
@@ -58,32 +58,32 @@ let linhasHTML = '';
 
 for (const exec in executivos) {
     const v = executivos[exec];
-    const totalExec = v['TV PARANAIBA (RECORD)'] + v['PARANAIBA FM 100,7'] + 
-                      v['EDUCADORA 90.9 FM'] + v['PORTAL + DIGITAL'] + v['OUT OF HOME'];
+    const totalExec = v['TV PARANAIBA RECORD'] + v['PARANAIBA FM 1007'] + 
+                      v['EDUCADORA 909 FM'] + v['PORTAL  DIGITAL'] + v['OUT OF HOME'];
 
     linhasHTML += `
     <tr>
         <td style="padding:12px 8px;text-align:left;border:1px solid #ddd;">${exec}</td>
-        <td style="padding:8px;text-align:right;border:1px solid #ddd;">${formatBRL(v['TV PARANAIBA (RECORD)'])}</td>
-        <td style="padding:8px;text-align:right;border:1px solid #ddd;">${formatBRL(v['PARANAIBA FM 100,7'])}</td>
-        <td style="padding:8px;text-align:right;border:1px solid #ddd;">${formatBRL(v['EDUCADORA 90.9 FM'])}</td>
-        <td style="padding:8px;text-align:right;border:1px solid #ddd;">${formatBRL(v['PORTAL + DIGITAL'])}</td>
+        <td style="padding:8px;text-align:right;border:1px solid #ddd;">${formatBRL(v['TV PARANAIBA RECORD'])}</td>
+        <td style="padding:8px;text-align:right;border:1px solid #ddd;">${formatBRL(v['PARANAIBA FM 1007'])}</td>
+        <td style="padding:8px;text-align:right;border:1px solid #ddd;">${formatBRL(v['EDUCADORA 909 FM'])}</td>
+        <td style="padding:8px;text-align:right;border:1px solid #ddd;">${formatBRL(v['PORTAL  DIGITAL'])}</td>
         <td style="padding:8px;text-align:right;border:1px solid #ddd;">${formatBRL(v['OUT OF HOME'])}</td>
         <td style="padding:8px;text-align:right;border:1px solid #ddd;">${formatBRL(totalExec)}</td>
     </tr>`;
 }
 
 // 3. Construção da Linha de Totais
-const totalGeralFinal = totaisGerais['TV PARANAIBA (RECORD)'] + totaisGerais['PARANAIBA FM 100,7'] + 
-                        totaisGerais['EDUCADORA 90.9 FM'] + totaisGerais['PORTAL + DIGITAL'] + totaisGerais['OUT OF HOME'];
+const totalGeralFinal = totaisGerais['TV PARANAIBA RECORD'] + totaisGerais['PARANAIBA FM 1007'] + 
+                        totaisGerais['EDUCADORA 909 FM'] + totaisGerais['PORTAL  DIGITAL'] + totaisGerais['OUT OF HOME'];
 
 linhasHTML += `
 <tr  style="background:#0066cc;color:#ffffff;">
     <td style="padding:12px 8px;text-align:left;">Total Geral</td>
-    <td style="padding:8px;text-align:right;">${formatBRL(totaisGerais['TV PARANAIBA (RECORD)'])}</td>
-    <td style="padding:8px;text-align:right;">${formatBRL(totaisGerais['PARANAIBA FM 100,7'])}</td>
-    <td style="padding:8px;text-align:right;">${formatBRL(totaisGerais['EDUCADORA 90.9 FM'])}</td>
-    <td style="padding:8px;text-align:right;">${formatBRL(totaisGerais['PORTAL + DIGITAL'])}</td>
+    <td style="padding:8px;text-align:right;">${formatBRL(totaisGerais['TV PARANAIBA RECORD'])}</td>
+    <td style="padding:8px;text-align:right;">${formatBRL(totaisGerais['PARANAIBA FM 1007'])}</td>
+    <td style="padding:8px;text-align:right;">${formatBRL(totaisGerais['EDUCADORA 909 FM'])}</td>
+    <td style="padding:8px;text-align:right;">${formatBRL(totaisGerais['PORTAL  DIGITAL'])}</td>
     <td style="padding:8px;text-align:right;">${formatBRL(totaisGerais['OUT OF HOME'])}</td>
     <td style="padding:8px;text-align:right;">${formatBRL(totalGeralFinal)}</td>
 </tr>`;
