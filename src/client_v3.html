@@ -74,6 +74,72 @@
 </tr>
 </thead>
 <tbody>
+
+{{ (() => {
+  // Inicializando as cestas
+  const canaisExec = { 'TV PARANAIBA RECORD': 0, 'PARANAIBA FM 1007': 0, 'EDUCADORA 909 FM': 0, 'PORTAL  DIGITAL': 0, 'OUT OF HOME': 0 };
+  const canaisRep = { 'TV PARANAIBA RECORD': 0, 'PARANAIBA FM 1007': 0, 'EDUCADORA 909 FM': 0, 'PORTAL  DIGITAL': 0, 'OUT OF HOME': 0 };
+  const canaisGeral = { 'TV PARANAIBA RECORD': 0, 'PARANAIBA FM 1007': 0, 'EDUCADORA 909 FM': 0, 'PORTAL  DIGITAL': 0, 'OUT OF HOME': 0 };
+  
+  // Lista do que é considerado "Repasse" ou "Outros"
+  const listaRepasse = ['IURD', 'TRIANGULO DA SORTE', 'REPASSE CACHE', 'DIRETO REPASSE'];
+  
+  const items = $('business_basket').all();
+  
+  items.forEach(item => {
+    const veiculo = item.json.nome_veiculo;
+    const exec = (item.json.executivo || '').toUpperCase().trim();
+    const valor = parseFloat(item.json.valor_total || 0);
+    
+    if (!isNaN(valor) && veiculo && canaisGeral.hasOwnProperty(veiculo)) {
+        canaisGeral[veiculo] += valor;
+        
+        // Se estiver na lista ou tiver "REPASSE" no nome
+        if (listaRepasse.includes(exec) || exec.includes('REPASSE')) {
+            canaisRep[veiculo] += valor;
+        } else {
+            canaisExec[veiculo] += valor;
+        }
+    }
+  });
+  
+  const totalExec = Object.values(canaisExec).reduce((sum, val) => sum + val, 0);
+  const totalRep = Object.values(canaisRep).reduce((sum, val) => sum + val, 0);
+  const totalGeral = Object.values(canaisGeral).reduce((sum, val) => sum + val, 0);
+  
+  const formatNum = (val) => val.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  
+  return `
+    <tr>
+        <td style="padding:16px 12px;text-align:left;border-bottom:1px solid #f1f5f9;color:#334155;font-weight:700;">Realizado Executivos (R$)</td>
+        <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:600;color:#3b82f6;">${formatNum(canaisExec['TV PARANAIBA RECORD'])}</td>
+        <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:600;color:#3b82f6;">${formatNum(canaisExec['PARANAIBA FM 1007'])}</td>
+        <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:600;color:#3b82f6;">${formatNum(canaisExec['EDUCADORA 909 FM'])}</td>
+        <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:600;color:#3b82f6;">${formatNum(canaisExec['PORTAL  DIGITAL'])}</td>
+        <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:600;color:#3b82f6;">${formatNum(canaisExec['OUT OF HOME'])}</td>
+        <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:800;font-size:13px;color:#1e293b;">${formatNum(totalExec)}</td>
+    </tr>
+    <tr>
+        <td style="padding:16px 12px;text-align:left;border-bottom:1px solid #f1f5f9;color:#334155;font-weight:700;">Repasse e Outros (R$)</td>
+        <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:500;color:#64748b;">${formatNum(canaisRep['TV PARANAIBA RECORD'])}</td>
+        <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:500;color:#64748b;">${formatNum(canaisRep['PARANAIBA FM 1007'])}</td>
+        <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:500;color:#64748b;">${formatNum(canaisRep['EDUCADORA 909 FM'])}</td>
+        <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:500;color:#64748b;">${formatNum(canaisRep['PORTAL  DIGITAL'])}</td>
+        <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:500;color:#64748b;">${formatNum(canaisRep['OUT OF HOME'])}</td>
+        <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:700;font-size:12px;color:#475569;">${formatNum(totalRep)}</td>
+    </tr>
+    <tr style="background-color:#f8fafc;">
+        <td style="padding:16px 12px;text-align:left;border-bottom:2px solid #e2e8f0;color:#0f172a;font-weight:800;text-transform:uppercase;">Realizado Geral (R$)</td>
+        <td style="padding:16px 12px;border-bottom:2px solid #e2e8f0;text-align:right;font-weight:800;color:#0f172a;">${formatNum(canaisGeral['TV PARANAIBA RECORD'])}</td>
+        <td style="padding:16px 12px;border-bottom:2px solid #e2e8f0;text-align:right;font-weight:800;color:#0f172a;">${formatNum(canaisGeral['PARANAIBA FM 1007'])}</td>
+        <td style="padding:16px 12px;border-bottom:2px solid #e2e8f0;text-align:right;font-weight:800;color:#0f172a;">${formatNum(canaisGeral['EDUCADORA 909 FM'])}</td>
+        <td style="padding:16px 12px;border-bottom:2px solid #e2e8f0;text-align:right;font-weight:800;color:#0f172a;">${formatNum(canaisGeral['PORTAL  DIGITAL'])}</td>
+        <td style="padding:16px 12px;border-bottom:2px solid #e2e8f0;text-align:right;font-weight:800;color:#0f172a;">${formatNum(canaisGeral['OUT OF HOME'])}</td>
+        <td style="padding:16px 12px;border-bottom:2px solid #e2e8f0;text-align:right;font-weight:900;font-size:14px;color:#0f172a;">${formatNum(totalGeral)}</td>
+    </tr>
+  `;
+})() }}
+
 <tr>
     <td style="padding:16px 12px;text-align:left;border-bottom:1px solid #f1f5f9;color:#334155;font-weight:700;">Meta (R$)</td>
     <td style="padding:16px 12px;text-align:right;border-bottom:1px solid #f1f5f9;font-weight:500;color:#64748b;">992.000,00</td>
@@ -82,30 +148,6 @@
     <td style="padding:16px 12px;text-align:right;border-bottom:1px solid #f1f5f9;font-weight:500;color:#64748b;">87.000,00</td>
     <td style="padding:16px 12px;text-align:right;border-bottom:1px solid #f1f5f9;font-weight:500;color:#64748b;">10.000,00</td>
     <td style="padding:16px 12px;text-align:right;border-bottom:1px solid #f1f5f9;font-weight:700;color:#1e293b;">1.774.117,00</td>
-</tr>
-
-<tr>
-    <td style="padding:16px 12px;text-align:left;border-bottom:1px solid #f1f5f9;color:#334155;font-weight:700;">Realizado (R$)</td>
-{{ (() => {
-  const canais = { 'TV PARANAIBA RECORD': 0, 'PARANAIBA FM 1007': 0, 'EDUCADORA 909 FM': 0, 'PORTAL  DIGITAL': 0, 'OUT OF HOME': 0 };
-  const items = $('business_basket').all();
-  items.forEach(item => {
-    const veiculo = item.json.nome_veiculo;
-    const valor = parseFloat(item.json.valor_total || 0);
-    if (!isNaN(valor) && veiculo && canais.hasOwnProperty(veiculo)) canais[veiculo] += valor;
-  });
-  const totalGeral = Object.values(canais).reduce((sum, val) => sum + val, 0);
-  const formatNum = (val) => val.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  
-  return `
-    <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:600;color:#3b82f6;">${formatNum(canais['TV PARANAIBA RECORD'])}</td>
-    <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:600;color:#3b82f6;">${formatNum(canais['PARANAIBA FM 1007'])}</td>
-    <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:600;color:#3b82f6;">${formatNum(canais['EDUCADORA 909 FM'])}</td>
-    <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:600;color:#3b82f6;">${formatNum(canais['PORTAL  DIGITAL'])}</td>
-    <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:600;color:#3b82f6;">${formatNum(canais['OUT OF HOME'])}</td>
-    <td style="padding:16px 12px;border-bottom:1px solid #f1f5f9;text-align:right;font-weight:800;font-size:13px;color:#1e293b;">${formatNum(totalGeral)}</td>
-  `;
-})() }}
 </tr>
 
 <tr>
